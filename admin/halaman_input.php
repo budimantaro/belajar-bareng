@@ -10,6 +10,31 @@ $isi        = "";
 $error      = "";  // ------> tampilan apabila terjadi error
 $sukses     = "";  // ------> tampilan apabila sukses
 
+if (isset($_GET['id'])) {   // dicek apakah ada id
+    $id = $_GET['id'];
+} else {
+    $id = "";
+}
+
+if ($id != "") {
+    $id = $_GET['id'];
+    $sql1 = "SELECT * FROM halaman WHERE id ='$id'";
+    $q1 = mysqli_query($koneksi, $sql1);
+    $r1 = mysqli_fetch_array($q1);
+    $judul    = $r1['judul'];
+    $kutipan  = $r1['kutipan'];
+    $isi      = $r1['isi'];
+
+    if ($isi ==""){
+        $error = "Data tidak ditemukan";
+    }
+
+    if ($q1) {
+        $sukses = " Data derhasil diUpdate.";
+    }
+}
+
+
 if (isset($_POST['simpan'])) {
     $judul    = $_POST['judul'];
     $kutipan  = $_POST['kutipan'];
@@ -22,7 +47,13 @@ if (isset($_POST['simpan'])) {
 
     //
     if (empty($error)) {
-        $sql1   = "INSERT INTO halaman(judul,kutipan,isi) VALUES ('$judul','$kutipan','$isi')";
+        if($id != ""){
+            $sql1 = "UPDATE halaman SET judul='$judul',
+            kutipan='$kutipan',isi='$isi',tgl_isi=NOW() WHERE id='$id'";
+        }else{
+            $sql1   = "INSERT INTO halaman(judul,kutipan,isi) VALUES ('$judul','$kutipan','$isi')";
+        }
+
         $q1     = mysqli_query($koneksi, $sql1);
 
         if ($q1) {
