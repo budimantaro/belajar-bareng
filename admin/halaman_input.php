@@ -16,7 +16,7 @@ if (isset($_GET['id'])) {   // dicek apakah ada id
     $id = "";
 }
 
-if ($id != "") {
+if ($id != "") {   // jika id tidak sama kosong
     $id = $_GET['id'];
     $sql1 = "SELECT * FROM halaman WHERE id ='$id'";
     $q1 = mysqli_query($koneksi, $sql1);
@@ -25,13 +25,10 @@ if ($id != "") {
     $kutipan  = $r1['kutipan'];
     $isi      = $r1['isi'];
 
-    if ($isi ==""){
+    if ($isi ==''){
         $error = "Data tidak ditemukan";
     }
 
-    if ($q1) {
-        $sukses = " Data derhasil diUpdate.";
-    }
 }
 
 
@@ -50,14 +47,16 @@ if (isset($_POST['simpan'])) {
         if($id != ""){
             $sql1 = "UPDATE halaman SET judul='$judul',
             kutipan='$kutipan',isi='$isi',tgl_isi=NOW() WHERE id='$id'";
+            $sukses = " Data derhasil diUpdate.";
         }else{
             $sql1   = "INSERT INTO halaman(judul,kutipan,isi) VALUES ('$judul','$kutipan','$isi')";
+            $sukses = "SUKSES.. Data berhasil dimasukkan.";
         }
 
         $q1     = mysqli_query($koneksi, $sql1);
 
         if ($q1) {
-            $sukses = "SUKSES.. Data berhasil dimasukkan.";
+            echo $sukses;
         } else {
             $error  = "Gagal...input data";
         }
@@ -95,7 +94,7 @@ if ($sukses) {
     <div class="mb-3 row">
         <label for="judul" class="col-sm-2 col-form-label">Judul</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" id="judul" value="<?php echo $kutipan ?>" name="judul">
+            <input type="text" class="form-control" id="judul" value="<?php echo $judul ?>" name="judul">
         </div>
     </div>
 
