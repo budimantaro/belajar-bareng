@@ -66,7 +66,7 @@ if ($sukses) {
         <?php
         $sqltambahan    = "";
         if ($katakunci != '') {
-            $array_katakunci = explode(" ", $katakunci); //explode digunakan untuk mengecek data yang dipisahkan oleh " " dari berbagai masukkan kata kunci
+            $array_katakunci = explode(" ", $katakunci); //explode digunakan untuk memisahkan menjadi array data yang dipisahkan oleh " " dari berbagai masukkan kata kunci
             for ($x = 0; $x < count($array_katakunci); $x++) {       // dimulai dari o sampai jumlah data
                 $sqlcari[] = "(judul LIKE'%" . $array_katakunci[$x] .
                     "%' or kutipan LIKE'%" . $array_katakunci[$x] .
